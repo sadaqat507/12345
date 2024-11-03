@@ -1,18 +1,77 @@
 import React, { useContext, useState } from "react";
 import { useCounter } from "../../../context/CounterContext";
 import { ProductsContext } from "../../../context/ProductContext";
-import { Button, Form, Image, Input, Modal } from "antd";
+import { Button, Form, Image, Input, message, Modal } from "antd";
 import { MedicineBoxOutlined } from "@ant-design/icons";
 import { GrSubtractCircle } from "react-icons/gr";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import "./cart.scss"
 import Blanck404 from "../../Blanck404";
+import {  doc, setDoc } from "firebase/firestore";
+import { firestore } from "../../../config/firestore";
+import { Context } from "../../../context/Appcontext";
  
 const Cart = () => {
   const { state, dispatch } = useCounter();
   const { products } = useContext(ProductsContext);
-  console.log("state", state.productOrder);
-  console.log("dispatch", dispatch);
-  console.log("products", products);
+  const {userUid,isProcessing,setIsProcessing}=useContext(Context)
+  // const [previousOrder,setPreviousOrder]=useState()
+  // console.log("state", state.productOrder);
+  // console.log("dispatch", dispatch);
+  // console.log("products", products);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const querySnapshot = await getDocs(collection(firestore, "UserOrder"));
+        // Map through the documents to extract data
+  //       const orders = querySnapshot.docs.map((doc) => ({
+  //         id: doc.id, // Each document has an ID
+  //         ...doc.data(), // Spread the rest of the document data
+  //       }));
+  //       setPreviousOrder(orders); 
+        
+  //       previousOrder.forEach((order) => {
+  //         // Assuming 'order' structure is: { order: { [userUid]: [orderFinalize, {status: "false"}] }}
+  //         if (order.order && order.order[userUid]) {
+  //           // Get the order and status
+  //           const userOrder = order.order[userUid];
+  //           const orderFinalize = userOrder[0]; // Assuming the first element is the finalized order
+  //           const orderStatus = userOrder[1]; // Assuming second element contains {status: "false"}
+  //            const [item1,setItems]=useState()
+  //           orderStatus.map((item,i)=>{
+  //             setItems(item)
+  //           })
+            
+
+  //           console.log(`Order Finalize: ${orderFinalize}`);
+  //           console.log(`Order Status: ${orderStatus}`);
+  //         } else {
+  //           console.log("User not found in this order.");
+  //         }
+  //       });
+
+
+  //     } catch (error) {
+  //       console.error("Error fetching documents: ", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
+  // Log the fetched data
+  // useEffect(() => {
+  //   console.log("previousOrder", previousOrder[0].id===userUid);
+  //   if(previousOrder.order.userUid===userUid){
+  //     console.log(previousOrder.order.userUid);
+  //   }else{
+  //     console.log("user not login");
+  //   }
+  // }, [previousOrder]);
+
+  // console.log("previousOrder",previousOrder);
+
+
   const handleCounter = (operation, productId, e) => {
     e.preventDefault(); // Prevent default behavior
     dispatch({ type: operation, productId });
@@ -28,6 +87,7 @@ const Cart = () => {
     setOrder(true)
   }
 
+ 
    const [formValues, setFormValues] = useState({
     name: "",
     phone: "",
@@ -43,12 +103,48 @@ const Cart = () => {
       [name]: value, // Update the specific input field
     }));
   };
-
+console.log(state.productOrder
+);
   // Handle form submission
-  const handleSubmit = (values) => {
-    console.log("Form submitted: ", formValues);
-    // You can now send formValues to your API or do other processing
-  };
+  const handleSubmit = async() => {
+
+if(formValues.address.length>5 && formValues.id.length>5 && formValues.phone.length>5){
+  const orderFinalize={
+    location:formValues,
+    product_Order:state
+    }
+    try {
+
+      const id=Math.random().toString(36).slice(2)
+      const orderDetail={ id:id,userUid:userUid,location:formValues,order:state.productOrder,status:"inactive"}
+      console.log(orderDetail);
+      if(userUid){
+        await setDoc(doc(firestore, "UserOrder",  id), orderDetail );
+        message.success("Order is done successfully!");
+        setFormValues("");
+        console.log("Form submitted: ", orderFinalize);
+        setIsProcessing(true);
+        setOrder(false)
+      }else{
+        message.info("Please you can Login!");
+        navigator("/auth/login")
+      }
+      
+      
+    
+    
+
+    } catch (error) {
+      message.error("Order is not done Please try again!");
+
+    } 
+}else{
+  message.info("Please file box according to requirement!");
+}
+
+    
+     
+   };
 
   return (
     <div className="container-fluid">
@@ -61,12 +157,12 @@ const Cart = () => {
                 .filter((product) => product.id === orderItem.productId)
                 .map((product, i) => (
                   <div
-                    className="col-xl-3 col-lg-4 col-md-5 col-sm-9 col-10 border"
+                    className="col-xl-3 col-lg-4 col-md-5 col-sm-9 col-10 "
                     key={i}
                   >
-                    <div className="m-2 border">
+                    <div className="m-1 p-2 border rounded selected" >
                       <div
-                        className="imgbox border d-flex"
+                        className="imgbox   d-flex"
                         style={{
                           height: "auto",
                           width: "100%",
@@ -74,7 +170,7 @@ const Cart = () => {
                         }}
                       >
                         <div
-                          className="w-50 border"
+                          className="w-50  "
                           style={{ height: "100px" }}
                         >
                           <Image
@@ -107,8 +203,8 @@ const Cart = () => {
                             cursor: "pointer",
                           }}
                         >
-                          {product.productDetail.length > 50 ? (
-                            <>{product.productDetail.slice(0, 50)}......</>
+                          {product.productDetail.length < 100 ? (
+                            <>{product.productDetail.slice(0, 100)}......</>
                           ) : (
                             product.productDetail
                           )}
@@ -131,7 +227,7 @@ const Cart = () => {
                           </span>{" "}
                         </p>
 
-                        <div className="detail border text-Center">
+                        <div className="detail  text-Center">
                           <div
                             className="chart border rounded px-2 py-1 text-between "
                             style={{ color: "#D3D3D3" }}
@@ -187,16 +283,23 @@ const Cart = () => {
 
                        
       </div>
+        
+        <div className="row  text-Center">
+          {state.productOrder ? <div className="col-10  buttonOrder rounded-pill text-Center ">
+          <button className="btn  rounded-pill " onClick={handleOrder}  >Order Now</button></div>:""}
+        
+        </div>
+
       <div className="row border border-success text-Center">
-        <div className="col ">
-                        <button onClick={handleOrder} type="primary">Order Now</button>
+                     
+        <div className="col d-flex justify-content-center align-items-center border  ">
                         <Modal
                             visible={order}
                             footer={null}
                             onCancel={() => setOrder(false)}
-                          >
-                            <div className="col-9 border">
-                            <Form col={15}
+                           >
+                            <div className="w-75">
+                            <Form col={20}
       onFinish={handleSubmit} // Ant Design handles form submission here
     >
 
@@ -204,7 +307,7 @@ const Cart = () => {
         <Input
           type="text"
           name="name"
-          placeholder="Name"
+          placeholder="Name Atleast 5 character"
           value={formValues.name}
           onChange={handleChange}
         />
@@ -214,7 +317,7 @@ const Cart = () => {
         <Input
           type="text"
           name="phone"
-          placeholder="Phone"
+          placeholder="Phone Atleast 5 number ..."
           value={formValues.phone}
           onChange={handleChange}
         />
@@ -224,7 +327,7 @@ const Cart = () => {
         <Input
           type="text"
           name="address"
-          placeholder="Address"
+          placeholder="Address Atleast 5 number ..."
           value={formValues.address}
           onChange={handleChange}
         />
@@ -234,14 +337,15 @@ const Cart = () => {
         <Input
           type="text"
           name="id"
-          placeholder="ID"
+          placeholder="Id Atleast 5 number ..."
           value={formValues.id}
           onChange={handleChange}
         />
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" loading={isProcessing} htmlType="submit" 
+ >
           Submit
         </Button>
       </Form.Item>
@@ -251,6 +355,9 @@ const Cart = () => {
                             
                         </Modal>
         </div>
+      </div>
+      <div className="row">
+        <div className="col">Order history</div>
       </div>
     </div>
   );

@@ -1,0 +1,16 @@
+.selected{
+    box-shadow:rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
+}
+
+.selected:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;}
+
+  .buttonOrder{
+    background-color:#b8f8da;
+    width:100%
+  }  
+
+.buttonOrder:hover{
+        background-color: #7ffac1;
+        color:#ffff;
+    }

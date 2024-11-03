@@ -7,6 +7,7 @@ import OfferContextProvider from "./context/OfferContext.js";
 import ProductsContextProvider from "./context/ProductContext.js";
 import { CounterProvider } from "./context/CounterContext.js";
 import { SearchProvider } from "./context/SearchProduct.js";
+import OrderContextProvider from "./context/OrderContext.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,7 +18,9 @@ root.render(
           <OfferContextProvider>
             <AuthContext>
               <SearchProvider>
-              <App />
+                <OrderContextProvider>
+                 <App />
+              </OrderContextProvider>
               </SearchProvider>
             </AuthContext>
           </OfferContextProvider>
