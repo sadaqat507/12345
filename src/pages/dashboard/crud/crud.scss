@@ -1,0 +1,41 @@
+.group {
+    // display: flex;
+    // align-items: center;
+    position: relative;
+    // max-width: 190px;
+    line-height: 28px;
+  }
+  
+  .input {
+    height: 40px;
+    padding:  1rem;
+    margin: 1rem 0rem;
+     width: 100%;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #D9E8D8;
+    color: #0d0c22;
+    box-shadow: 0 0 5px #C1D9BF, 0 0 0 10px #f5f5f5eb;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  
+    // Placeholder styling
+    &::placeholder {
+      color: #777;
+    }
+  
+    // Focused input behavior
+    &:focus {
+      border-color: #0d0c22;
+      box-shadow: 0 0 5px #0d0c22, 0 0 0 10px #f5f5f5eb;
+    }
+  }
+  
+  // .icon {
+  //   position: absolute;
+  //   left: 1rem;
+  //   width: 1rem;
+  //   height: 1rem;
+  //   // color: #777;  // Replacing fill to color for a more consistent effect
+  // }
+  

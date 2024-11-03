@@ -1,0 +1,36 @@
+// .navbar {
+//   
+// }
+
+
+ 
+.sticky-container {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  z-index: 999; // Ensure it's above other content when scrolling
+  background-color: inherit; // Retain background color
+}
+
+// Navbar styles
+.navbar {
+	background-color: #10B981; 
+	position: relative;  
+	  top: 0;  
+	  padding: 10px;  
+	  z-index: 9999;  
+
+  .file-input-wrapper {
+ 
+    .custom-file-label {
+ 
+    }
+  }
+  .dropbtn {
+ 	border: 2px solid red;
+
+  }
+}
+
+
+ 

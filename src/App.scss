@@ -1,0 +1,126 @@
+
+ 
+ @import './mixin.scss';
+
+ @keyframes pulse {
+	from {
+		transform: scale(0.9);
+		opacity: 1;
+	}
+	to {
+		transform: scale(1.8);
+		opacity: 0;
+	}
+}
+
+ 
+
+// Global reset
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+} 
+
+
+
+
+.links{
+   color: inherit;
+   text-decoration: none;
+
+
+ }
+ .links:hover{
+    color: #3e8e41;
+ }
+//Mixin apply
+.text-between {
+   @include text-between;
+ }.text-Center {
+   @include text-Center;
+ } 
+ .text-end {
+   @include text-end;
+ } 
+ .greentext{
+  @include greentext
+}.greenbg{
+  @include greenbg
+}
+
+
+  
+.animated{
+  @include animated
+}
+
+.liststyle{
+   list-style: none;
+   .verticalborder{
+      border-left: 1px solid #0000006f;
+   }
+   .links{
+     text-decoration: none;
+   }
+}
+
+
+/// coustom Loader
+/// 
+
+$loader-width: 70px;
+$loader-height: 70px;
+$loader-color: #ffa600;
+$mask-size: 31px;
+$animation-duration: 1.5s;
+
+.custom-loader {
+  width: $loader-width;
+  height: $loader-height;
+  background: $loader-color;
+  border-radius: 50px;
+  -webkit-mask: radial-gradient(circle $mask-size at 50% calc(100% + 13px), #000 95%, transparent) top 4px left 50%,
+                radial-gradient(circle $mask-size, #000 95%, transparent) center,
+                radial-gradient(circle $mask-size at 50% -13px, #000 95%, transparent) bottom 4px left 50%,
+                linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  -webkit-mask-repeat: no-repeat;
+  animation: cu10 $animation-duration infinite;
+}
+
+@keyframes cu10 {
+  0% {
+    -webkit-mask-size: 0 18px, 0 18px, 0 18px, auto;
+  }
+
+  16.67% {
+    -webkit-mask-size: 100% 18px, 0 18px, 0 18px, auto;
+  }
+
+  33.33% {
+    -webkit-mask-size: 100% 18px, 100% 18px, 0 18px, auto;
+  }
+
+  50% {
+    -webkit-mask-size: 100% 18px, 100% 18px, 100% 18px, auto;
+  }
+
+  66.67% {
+    -webkit-mask-size: 0 18px, 100% 18px, 100% 18px, auto;
+  }
+
+  83.33% {
+    -webkit-mask-size: 0 18px, 0 18px, 100% 18px, auto;
+  }
+
+  100% {
+    -webkit-mask-size: 0 18px, 0 18px, 0 18px, auto;
+  }
+}
+
+
+Link{
+  text-decoration: none;
+}

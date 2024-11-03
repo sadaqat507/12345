@@ -1,0 +1,49 @@
+ 
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+   }
+ 
+   
+  
+
+
+   
+   
+    
+  #borderchange{
+    border: 2px solid  #EF4444;
+  }
+  #borderchange:hover{
+   border: 2px solid #10b981;
+   }
+   .Categories{
+    border: 1px solid #F3F4F6;
+    // margin: 0 1px 1px 0px;
+    background-color: #ffffff;
+    height: 7em;
+    }
+    .Categorie{
+       height: 7em;
+      }
+    .papular {
+      // border: 2px solid  #10b981;
+      width: 95%;
+      height: 95%;
+      transition: all 0.3s ease-in-out; /* Adds smooth transition */
+  }
+  
+  .papular:hover {
+      width:   100%; /* 10% increase in size (70% + 7%) */
+      height:   100%; /* 10% increase in size */
+  }
+  
+.chart:hover{
+background-color: #10b981;
+color: #F3F4F6;
+}
+
+   
+  

@@ -1,0 +1,87 @@
+  
+  @import '../../mixin.scss';
+  .dropbtn {
+      background: none;
+      padding: 6px;
+      font-size: 16px;
+      border: none;
+      // display: flex;
+      // align-items: center;
+      @include text-Center;
+  
+      
+      // Style when hovering over button or dropdown content
+      .icon {
+        // transition: transform 0.5s ease-in-out;
+        margin-top: 6px;
+        margin-left: .3em;
+        }
+        .iconpage{
+        margin-top: 6px;
+        margin-left:2px;
+        }
+    }
+      
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    
+      &:hover {
+        .dropbtn {
+          color: #3e8e41;
+     
+        }
+    
+        .dropdown-content {
+          display: block;
+        }
+      }
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+  
+    
+      a {
+        color: #000000bf;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+  
+    
+        &:hover {
+          background-color: #ddd;
+        }
+      }
+      
+    }
+     
+    
+    @keyframes rippleEffect {
+      0% {
+        box-shadow: 0 0 0 0px rgba(244, 82, 82, 0.7);
+      }
+      100% {
+        box-shadow: 0 0 0 5px rgba(244, 82, 82, 0); /* Expands and fades out */
+      }
+    }
+  
+     
+    .row {
+      --bs-gutter-x: 0;
+      --bs-gutter-y: 0;
+    }
+    
+    .row > * {
+      padding-right: 0 !important;
+      padding-left: 0 !important;
+    }
+    
+    

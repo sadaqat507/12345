@@ -1,0 +1,16 @@
+$icon-size: 40px;
+$border-color-hover: #ffffff;
+
+.icon-container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: $icon-size;  // Use SCSS variable for consistent sizing
+  height: $icon-size;
+  border-radius: 50%;
+  border: 2px solid transparent;
+
+  &:hover {
+    border-color: $border-color-hover;  // Change border color on hover using a variable
+  }
+}

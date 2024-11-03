@@ -1,0 +1,31 @@
+@keyframes pulse {
+	from {
+		transform: scale(0.9);
+		opacity: 1;
+	}
+	to {
+		transform: scale(1.8);
+		opacity: 0;
+	}
+}
+
+@keyframes slidein {
+    from {
+      translate: 150vw 0;
+      scale: 200% 1;
+    }
+  
+    to {
+      translate: 0 0;
+      scale: 100% 1;
+    }
+  }
+
+  
+.parentform{
+    animation-duration: 1s;
+    animation-name: slidein;
+    // animation-iteration-count: infinite;
+    // animation-direction: alternate;
+
+}

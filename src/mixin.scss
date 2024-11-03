@@ -1,0 +1,42 @@
+@keyframes slidein {
+  from {
+    translate: 150vw 0;
+    scale: 200% 1;
+  }
+
+  to {
+    translate: 0 0;
+    scale: 100% 1;
+  }
+}
+
+
+@mixin text-Center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // display: grid;
+    // place-items:center;
+     
+ }@mixin text-between{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+
+}@mixin text-end{
+    display: flex;
+    align-items: center;
+    justify-content:end;
+    
+}
+
+@mixin greentext{
+    color:#10B981 ;
+  }@mixin greenbg{
+    background-color:#10B981 ;
+  }
+
+  @mixin animated{
+    animation-duration: 1s;
+    animation-name: slidein;
+  }
