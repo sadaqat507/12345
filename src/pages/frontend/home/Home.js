@@ -30,7 +30,7 @@ const Home = () => {
 
   const handlePreviewClick = (id) => {
       setVisible(true);
-     console.log(typeof id);
+    //  console.log(typeof id);
      
 };
   return (
@@ -168,7 +168,7 @@ const Home = () => {
                 .filter((product) => product.status === "true")
                 .map((product) => {
                   const counter = state.productCounters[product.id] || 0; // Fixed counter retrieval
-                  console.log(product.id);
+                  // console.log(product.id);
 
                   return (
                     <div
